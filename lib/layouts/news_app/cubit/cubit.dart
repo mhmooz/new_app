@@ -13,7 +13,7 @@ class NewsCubit extends Cubit<NewsStates> {
 
   static NewsCubit get(context) => BlocProvider.of(context);
 
-// ........................   bottomNavBar  ...........................
+// ------------------------   bottomNavBar  ------------------------
 
   int currentIndex = 0;
   List<BottomNavigationBarItem> bottomItems = [
@@ -36,7 +36,7 @@ class NewsCubit extends Cubit<NewsStates> {
     emit(BottomNavState());
   }
 
-// ..................................  BODY   .............................................
+// ------------------------       BODY      ------------------------
 
   List<Widget> screens = [
     BusinessScreen(),
@@ -45,7 +45,7 @@ class NewsCubit extends Cubit<NewsStates> {
     SettingsScreen(),
   ];
 
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<   Dio   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// ------------------------       Dio       ------------------------
 
   List<dynamic> business = [];
 
@@ -64,7 +64,7 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(BusinessErrorState(error.toString()));
     });
   }
-
+// -------------
   List<dynamic> sports = [];
 
   void getSports() {
@@ -86,7 +86,7 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(SportsSuccessState());
     }
   }
-
+// -------------
   List<dynamic> science = [];
 
   void getScience() {
@@ -108,4 +108,5 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(ScienceSuccessState());
     }
   }
+// -------------
 }
