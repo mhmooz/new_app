@@ -51,3 +51,17 @@ Widget buildArticleItem(model) => Row(
         )
       ],
     );
+
+Widget articleBuilder(list) {
+  if (list.length > 0) {
+    return ListView.separated(
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) => buildArticleItem(list[index]),
+        separatorBuilder: (context, index) => seperatorLine(),
+        itemCount: list.length);
+  } else {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
