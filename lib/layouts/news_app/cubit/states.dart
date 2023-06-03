@@ -39,3 +39,4 @@ class ScienceErrorState extends NewsStates {
 
   ScienceErrorState(this.error);
 }
+

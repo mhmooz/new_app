@@ -1,10 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_app/layouts/news_app/cubit/states.dart';
 import 'package:new_app/modules/business/business_screen.dart';
 import 'package:new_app/modules/science/science_screen.dart';
-import 'package:new_app/modules/settings/settings.dart';
 import 'package:new_app/modules/sports/sports_screen.dart';
 import 'package:new_app/shared/network/remote/dio_helper.dart';
 
@@ -17,11 +15,10 @@ class NewsCubit extends Cubit<NewsStates> {
 
   int currentIndex = 0;
   List<BottomNavigationBarItem> bottomItems = [
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(
         icon: Icon(Icons.business_center), label: 'BUSINESS'),
-    BottomNavigationBarItem(icon: Icon(Icons.sports), label: 'SPORTS'),
-    BottomNavigationBarItem(icon: Icon(Icons.science), label: 'SCINECE'),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'SETTINGS'),
+    const BottomNavigationBarItem(icon: Icon(Icons.sports), label: 'SPORTS'),
+    const BottomNavigationBarItem(icon: Icon(Icons.science), label: 'SCINECE'),
   ];
 
   void changeBottomNav(index) {
@@ -39,10 +36,9 @@ class NewsCubit extends Cubit<NewsStates> {
 // ------------------------       BODY      ------------------------
 
   List<Widget> screens = [
-    BusinessScreen(),
-    SportsScreen(),
-    ScienceScreen(),
-    SettingsScreen(),
+    const BusinessScreen(),
+    const SportsScreen(),
+    const ScienceScreen(),
   ];
 
 // ------------------------       Dio       ------------------------
@@ -64,12 +60,13 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(BusinessErrorState(error.toString()));
     });
   }
+
 // -------------
   List<dynamic> sports = [];
 
   void getSports() {
     emit(SportsLoadingState()); //........Loading before getting the data
-    if (sports.length == 0) {
+    if (sports.isEmpty) {
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': 'us',
         'category': 'sports',
@@ -86,12 +83,13 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(SportsSuccessState());
     }
   }
+
 // -------------
   List<dynamic> science = [];
 
   void getScience() {
     emit(ScienceLoadingState()); //........Loading before getting the data
-    if (science.length == 0) {
+    if (science.isEmpty) {
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': 'us',
         'category': 'science',
@@ -109,4 +107,6 @@ class NewsCubit extends Cubit<NewsStates> {
     }
   }
 // -------------
+
+
 }
