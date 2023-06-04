@@ -40,6 +40,8 @@ dependencies:
   sqflite: ^2.2.8+4
   dio: ^5.1.2
   hexcolor: ^3.0.1
+  shared_preferences: ^2.1.1
+  webview_flutter: ^4.2.1
 
 dev_dependencies:
   flutter_test:

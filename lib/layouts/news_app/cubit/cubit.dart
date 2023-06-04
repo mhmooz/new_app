@@ -50,13 +50,13 @@ class NewsCubit extends Cubit<NewsStates> {
     DioHelper.getData(url: 'v2/top-headlines', query: {
       'country': 'us',
       'category': 'business',
-      'apiKey': '9060398ae779405f8acfa44b906b7a68',
+      'apiKey': 'e3ed9bca131549568264a46b431ebeb8',
     }).then((value) {
       business = value.data['articles'];
 
       emit(BusinessSuccessState());
     }).catchError((error) {
-      print(error.toString());
+      print('the error is =========${error.toString()}');
       emit(BusinessErrorState(error.toString()));
     });
   }
@@ -70,7 +70,7 @@ class NewsCubit extends Cubit<NewsStates> {
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': 'us',
         'category': 'sports',
-        'apiKey': '9060398ae779405f8acfa44b906b7a68',
+        'apiKey': 'e3ed9bca131549568264a46b431ebeb8',
       }).then((value) {
         sports = value.data['articles'];
 
@@ -93,7 +93,7 @@ class NewsCubit extends Cubit<NewsStates> {
       DioHelper.getData(url: 'v2/top-headlines', query: {
         'country': 'us',
         'category': 'science',
-        'apiKey': '9060398ae779405f8acfa44b906b7a68',
+        'apiKey': 'e3ed9bca131549568264a46b431ebeb8',
       }).then((value) {
         science = value.data['articles'];
 
@@ -106,7 +106,22 @@ class NewsCubit extends Cubit<NewsStates> {
       emit(ScienceSuccessState());
     }
   }
+
 // -------------
+  List<dynamic> search = [];
 
+  void getSearch(String value) {
+    emit(SearchLoadingState()); //........Loading before getting the data
+    DioHelper.getData(url: 'v2/everything', query: {
+      'q': '$value',
+      'apiKey': 'e3ed9bca131549568264a46b431ebeb8',
+    }).then((value) {
+      search = value.data['articles'];
 
+      emit(SearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(SearchErrorState(error.toString()));
+    });
+  }
 }

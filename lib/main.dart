@@ -4,24 +4,37 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:new_app/app_cubit/main_cubit.dart';
 import 'package:new_app/app_cubit/main_states.dart';
+import 'package:new_app/layouts/news_app/cubit/cubit.dart';
 import 'package:new_app/layouts/news_app/news_layout.dart';
 import 'package:new_app/shared/bloc_observer.dart';
+import 'package:new_app/shared/network/local/cache_helper.dart';
 import 'package:new_app/shared/network/remote/dio_helper.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
-  runApp(const MyApp());
+  await CacheHelper.init();
+  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
+  runApp(MyApp(isDark));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  final bool? isDark;
+  MyApp(this.isDark);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => AppCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) =>
+              AppCubit()..changeAppTheme(fromShared: isDark),
+        ),
+        BlocProvider(
+          create: (context) => NewsCubit()..getBusiness(),
+        ),
+      ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
