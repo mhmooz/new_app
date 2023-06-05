@@ -36,7 +36,7 @@ class SearchScreen extends StatelessWidget {
                       NewsCubit.get(context).getSearch(value);
                     }),
               ),
-              Expanded(child: articleBuilder(list)),
+              Expanded(child: articleBuilder(list, isSearch: true)),
             ],
           ),
         );

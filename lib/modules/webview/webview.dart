@@ -1,12 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatelessWidget {
-
   late final WebViewController controller;
   final String url;
-  WebViewScreen(this.url);
+  // ignore: prefer_const_constructors_in_immutables
+  WebViewScreen(this.url, {super.key});
   @override
   Widget build(BuildContext context) {
     controller = WebViewController()..loadRequest(Uri.parse(url));

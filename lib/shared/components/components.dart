@@ -51,7 +51,11 @@ Widget seperatorLine() => Padding(
         color: Colors.grey,
       ),
     );
-Widget buildArticleItem(model, context) => InkWell(
+Widget buildArticleItem(
+  model,
+  context,
+) =>
+    InkWell(
       onTap: () {
         navigateTo(context, WebViewScreen(model['url']));
       },
@@ -98,7 +102,7 @@ Widget buildArticleItem(model, context) => InkWell(
       ),
     );
 
-Widget articleBuilder(list) {
+Widget articleBuilder(list, {isSearch = false}) {
   if (list.length > 0) {
     return ListView.separated(
         physics: const BouncingScrollPhysics(),
@@ -106,9 +110,13 @@ Widget articleBuilder(list) {
         separatorBuilder: (context, index) => seperatorLine(),
         itemCount: list.length);
   } else {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
+    if (isSearch) {
+      return Container();
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
 
