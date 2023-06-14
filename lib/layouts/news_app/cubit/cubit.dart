@@ -117,7 +117,7 @@ class NewsCubit extends Cubit<NewsStates> {
       'apiKey': 'e3ed9bca131549568264a46b431ebeb8',
     }).then((value) {
       search = value.data['articles'];
-
+ 
       emit(SearchSuccessState());
     }).catchError((error) {
       print(error.toString());
